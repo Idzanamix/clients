@@ -1,0 +1,54 @@
+/* 768 */
+@media (max-width: 768px) {
+  .gray--color {
+    display: flex;
+    padding: 0;
+  }
+
+  .hero__btns--wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  #hero__th--date-create,
+  #hero__th--date-change {
+    padding-right: 5px;
+  }
+}
+
+@media (max-width: 320px) {
+  .main {
+    overflow: none;
+  }
+
+  .hero__container {
+    padding: 0 10px;
+    padding-right: 10px;
+    max-width: 320px;
+  }
+
+  .hero__wrapper {
+    overflow-x: scroll;
+  }
+
+  .header__container {
+    justify-content: center;
+    padding-top: 8px;
+    padding-bottom: 8px;
+  }
+
+  .header__svg {
+    margin: 0;
+  }
+
+  .header__input {
+    display: none;
+  }
+
+  .header__svg {
+    width: 24px;
+    height: 24px;
+  }
+
+}
