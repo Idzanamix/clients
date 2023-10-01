@@ -143,6 +143,7 @@ body {
   min-height: 230px;
   background-color: var(--white);
   margin-bottom: 40px;
+  position: relative;
 }
 
 .hero__thead {
@@ -189,8 +190,8 @@ body {
 .hero__th:nth-child(2):hover,
 .hero__th:nth-child(3):hover,
 .hero__th:nth-child(4):hover {
-  opacity: 0.7;
-  transition: opacity 0.15s ease-in-out;
+  opacity: .7;
+  transition: opacity .15s ease-in-out;
 }
 
 .hero__th--toggle {
@@ -256,7 +257,7 @@ body {
 }
 
 .hero__tr:last-child {
-  animation-duration: 0.3s;
+  animation-duration: .3s;
   animation-name: slidein;
 }
 
@@ -297,14 +298,14 @@ body {
   align-items: center;
   gap: 10px;
   outline: none;
-  transition: opacity .15 ease-in-out, background-color .15 ease-in-out, color .15 ease-in-out;
+  transition: opacity .15s ease-in-out, background-color .15s ease-in-out, color .15s ease-in-out;
 }
 
 .hero__btn:focus-visible {
   background-color: var(--firm);
   opacity: .7;
   color: var(--white);
-  transition: opacity .15 ease-in-out, color .15 ease-in-out, background-color .15 ease-in-out;
+  transition: opacity .15s ease-in-out, color .15s ease-in-out, background-color .15s ease-in-out;
 }
 
 .hero__btn:focus-visible .hero__svg path {
@@ -316,7 +317,7 @@ body {
   background-color: var(--firm);
   opacity: .7;
   color: var(--white);
-  transition: opacity .15 ease-in-out, color .15 ease-in-out, background-color .15 ease-in-out;
+  transition: opacity .15s ease-in-out, color .15s ease-in-out, background-color .15s ease-in-out;
 }
 
 .hero__btn:hover .hero__svg path {
@@ -327,7 +328,7 @@ body {
 .hero__btn:active {
   opacity: 1;
   background-color: var(--french-violet);
-  transition: opacity .15 ease-in-out, background-color .15 ease-in-out
+  transition: opacity .15s ease-in-out, background-color .15s ease-in-out
 }
 
 .hero__contacts--wrapper {
@@ -498,25 +499,25 @@ body {
   margin-bottom: 10px;
   cursor: pointer;
   outline: none;
-  transition: opacity .15 ease-in-out, background-color .15 ease-in-out;
+  transition: opacity .15s ease-in-out, background-color .15s ease-in-out;
   font-size: 14px;
   font-weight: 600;
 }
 
 .popup__btn:focus-visible {
   opacity: .7;
-  transition: opacity .15 ease-in-out;
+  transition: opacity .15s ease-in-out;
 }
 
 .popup__btn:hover {
   opacity: .7;
-  transition: opacity .15 ease-in-out;
+  transition: opacity .15s ease-in-out;
 }
 
 .popup__btn:active {
   opacity: 1;
   background-color: var(--french-violet);
-  transition: opacity .15 ease-in-out, background-color .15 ease-in-out
+  transition: opacity .15s ease-in-out, background-color .15s ease-in-out
 }
 
 .popup__btn--cancel {
@@ -528,7 +529,7 @@ body {
   background-color: transparent;
   cursor: pointer;
   outline: none;
-  transition: opacity .15 ease-in-out, color .15 ease-in-out;
+  transition: opacity .15s ease-in-out, color .15s ease-in-out;
   font-size: 12px;
 }
 
@@ -544,18 +545,18 @@ body {
 
 .popup__btn--cancel:focus-visible {
   opacity: .7;
-  transition: opacity .15 ease-in-out;
+  transition: opacity .15s ease-in-out;
 }
 
 .popup__btn--cancel:hover {
   opacity: .7;
-  transition: opacity .15 ease-in-out;
+  transition: opacity .15s ease-in-out;
 }
 
 .popup__btn--cancel:active {
   opacity: 1;
   color: var(--firm);
-  transition: opacity .15 ease-in-out, color .15 ease-in-out;
+  transition: opacity .15s ease-in-out, color .15s ease-in-out;
 }
 
 .popup__btn--close {
@@ -601,12 +602,12 @@ body {
 
 .popup__btn--add-contact:focus-visible {
   color: var(--firm);
-  transition: color .15 ease-in-out;
+  transition: color .15s ease-in-out;
 }
 
 .popup__btn--add-contact:hover {
   color: var(--firm);
-  transition: color .15 ease-in-out;
+  transition: color .15s ease-in-out;
 }
 
 .popup__btn--add-contact:active {
@@ -633,7 +634,7 @@ body {
   margin-bottom: 25px;
   width: calc(100% - 60px);
   position: relative;
-  animation-duration: 0.3s;
+  animation-duration: .3s;
   animation-name: slidein;
   transition: transform .15s ease-in-out, opacity .15s ease-in-out, max-height 1s;
 }
@@ -681,7 +682,7 @@ body {
   right: 0;
   outline: none;
   display: none;
-  animation-duration: 0.2s;
+  animation-duration: .2s;
   animation-name: slidein;
 }
 
@@ -789,12 +790,12 @@ body {
   letter-spacing: 0em;
   text-align: left;
   min-height: 37px;
-  transition: background-color .15 ease-in-out;
+  transition: background-color .15s ease-in-out;
 }
 
 .choices:focus-visible .choices__inner {
   background-color: var(--grey);
-  transition: background-color .15 ease-in-out;
+  transition: background-color .15s ease-in-out;
 }
 
 .choices__item.choices__item--choice.choices__item--selectable.is-highlighted {
@@ -869,4 +870,56 @@ body {
 
 .choices__item[data-choice-disabled] {
   display: none;
+}
+
+/* loader */
+
+@keyframes hero__loader--rotate {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+.hero__loader {
+  width: 100px;
+  height: 100px;
+  display: inline-block;
+  overflow: hidden;
+  background: transparent;
+  z-index: 10000;
+  position: absolute;
+  top: calc(50% - 37px);
+  right: calc(50% - 50px);
+}
+
+.hero__loader--hide {
+  transition: opacity .15s ease-in-out, visibility .15s ease-in-out;
+  visibility: hidden;
+  opacity: 0;
+}
+
+.hero__loader--rotate {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform: translateZ(0) scale(1);
+  backface-visibility: hidden;
+  transform-origin: 0 0;
+}
+
+.hero__loader--rotate div {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  border: 7px solid var(--firm);
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: hero__loader--rotate .7s linear infinite;
+  top: 50px;
+  left: 50px;
+  box-sizing: content-box;
 }

@@ -12,7 +12,8 @@
     $heroThDateCreate = document.getElementById('hero__th--date-create'),
     $heroDateCreate = document.getElementById('hero__date-create'),
     $heroThDateChange = document.getElementById('hero__th--date-change'),
-    $heroDateChange = document.getElementById('hero__date-change');
+    $heroDateChange = document.getElementById('hero__date-change'),
+    $heroLoader = document.querySelector('.hero__loader');
   // добавление клиента на сервер
   async function serverAddClient(obj) {
     let response = await fetch(SERVER_URL + '/api/clients', {
@@ -36,15 +37,6 @@
   async function serverDeleteClient(id) {
     let response = await fetch(SERVER_URL + '/api/clients/' + id, {
       method: 'DELETE',
-    })
-    let data = await response.json()
-    return data
-  }
-  // поулчение данных о клиенте по id
-  async function serverGetClientData(id) {
-    let response = await fetch(SERVER_URL + '/api/clients/' + id, {
-      method: 'GET',
-      headers: { 'Content-Type': 'application/json' },
     })
     let data = await response.json()
     return data
@@ -81,6 +73,13 @@
   function returnScroll() {
     $page.classList.remove('stop-scroll')
   }
+  // window.addEventListener('load', () => {
+  //   $heroLoader.classList.add('.hero__loader--hide')
+  // })
+
+
+
+
   // попап
   const $popup = document.createElement('div'),
     $popupBody = document.createElement('div'),
@@ -112,6 +111,7 @@
 
     $popupDescr.textContent = 'Изменить данные'
     $popupBtnAmend.textContent = 'Сохранить'
+    $popupBtnAmend.type = 'button'
     $popupClientDelete.textContent = 'Удалить клиента'
     $popupClientId.textContent = `ID: ${oneClient.id}`
 
@@ -131,15 +131,17 @@
         contacts[i].childNodes[1].value = oneClient.contacts[i].value
       }
     }
-    $popupBtnAmend.addEventListener('click', async function (e) {
-      e.preventDefault()
-      contactsData()
-      if (newClientAddData == undefined) return
-      await serverChangeClient(oneClient.id, newClientAddData)
-      update()
-      popupClose()
-    })
+    // добавление изменённых данных
+    $popupBtnAmend.addEventListener('click', amendClient)
     $popupClientDelete.addEventListener('click', deletePopupClient)
+  }
+  async function amendClient() {
+    contactsData()
+    if (newClientAddData == undefined) return
+    renderLoaderShow()
+    await serverChangeClient(tdTarget.childNodes[0].innerText, newClientAddData)
+    update()
+    popupClose()
   }
   // добавление попапа
   function createPopup() {
@@ -172,7 +174,6 @@
     $inputSurname.type = 'text'
     $inputName.type = 'text'
     $inputLastName.type = 'text'
-    $popupBtnSave.type = 'button'
     $inputSurname.placeholder = ' '
     $inputName.placeholder = ' '
     $inputLastName.placeholder = ' '
@@ -266,7 +267,7 @@
         itemSelectText: '',
       });
     // закрытие инпута с контактом
-    $popupBtnCloseInput.addEventListener('click', function () {
+    function closeContactInput() {
       this.parentElement.style = 'transform: scale(0); opacity: 0; max-height: 0'
       function removeClientItem() {
         $popupContacts.remove()
@@ -283,7 +284,8 @@
       if (!contacts[0]) {
         $popupBtnAddContact.style = 'padding-bottom: 8px'
       }
-    })
+    }
+    $popupBtnCloseInput.addEventListener('click', closeContactInput)
   }
   // добавление попапа по нажатию
   $addClientButton.addEventListener('click', function () {
@@ -313,10 +315,12 @@
   function contactsData() {
     // валидация
     if (!$inputSurname.value.trim()) {
+      newClientAddData = undefined
       alert('Фамилия не введена!')
       return
     }
     if (!$inputName.value.trim()) {
+      newClientAddData = undefined
       alert('Имя не введено!')
       return
     }
@@ -342,6 +346,7 @@
     e.preventDefault()
     contactsData()
     if (newClientAddData == undefined) return
+    renderLoaderShow()
     await serverAddClient(newClientAddData)
     update()
     popupClose()
@@ -497,10 +502,10 @@
   // удаления клиента
   let tdTarget
   async function deleteClient() {
+    renderLoaderShow()
     await serverDeleteClient(tdTarget.childNodes[0].innerText)
     update()
     popupClose()
-    tdTarget.remove()
     returnScroll()
     $deletePopup.remove()
   }
@@ -543,6 +548,7 @@
     })
   }
   async function displayMatchClient() {
+    renderLoaderShow()
     const filteredClients = matchWord($clientsSearch.value, await serverGetClients())
     render(filteredClients)
   }
@@ -575,6 +581,7 @@
     })
   }
   function ckickThSort(thButton, sortFunc1, sortFunc2) {
+    renderLoaderShow()
     if (thButton.closest('.hero__th--toggle')) {
       thButton.classList.remove('hero__th--toggle')
       render(sortFunc1())
@@ -596,6 +603,12 @@
   $heroThDateChange.addEventListener('click', function () {
     ckickThSort($heroDateChange, sortByHigh, sortByLow)
   })
+  function renderLoaderHide() {
+    $heroLoader.classList.add('hero__loader--hide')
+  }
+  function renderLoaderShow() {
+    $heroLoader.classList.remove('hero__loader--hide')
+  }
   // render
   async function render(clientsArr) {
     $heroTbody.innerHTML = ''
@@ -610,6 +623,7 @@
       const $newClient = createClientTr(oneClient)
       $heroTbody.append($newClient)
     }
+    renderLoaderHide()
   }
   render(listData)
 })();
