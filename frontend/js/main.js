@@ -73,13 +73,6 @@
   function returnScroll() {
     $page.classList.remove('stop-scroll')
   }
-  // window.addEventListener('load', () => {
-  //   $heroLoader.classList.add('.hero__loader--hide')
-  // })
-
-
-
-
   // попап
   const $popup = document.createElement('div'),
     $popupBody = document.createElement('div'),
@@ -204,7 +197,7 @@
     $popupBody.append($popupBtnClose)
   }
   // кнопка добавления инпута с контактом
-  $popupBtnAddContact.addEventListener('click', addContactInput)
+  $popupBtnAddContact.addEventListener('click', addContactInputд)
   let contacts = []
   // создание импута с контактом
   function addContactInput() {
